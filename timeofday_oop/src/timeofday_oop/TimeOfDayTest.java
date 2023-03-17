@@ -13,8 +13,8 @@ class TimeOfDayTest {
 		assertEquals(0, oopStart.getMinutes());
 		oopStart.setMinutes(30);
 		TimeOfDay oopEnd = new TimeOfDay(12, 0);
-		oopStart.setHours(11);
-		oopStart.setMinutesSinceMidnight(13 * 60);
+		oopEnd.setHours(11);
+		oopEnd.setMinutesSinceMidnight(13 * 60);
 		int oopLength = oopEnd.getMinutesSinceMidnight() - oopStart.getMinutesSinceMidnight();
 		assertEquals(150, oopLength);
 	}
