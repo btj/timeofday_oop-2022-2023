@@ -14,6 +14,21 @@ package timeofday_oop;
 //
 // 3. Declare and document the constructors and/or factory methods and the mutators
 
+// Procedure for implementing a data abstraction:
+//
+// 1. Declare the fields =
+//    define the raw concrete state space
+//
+// 2. Define the set of valid concrete states =
+//    write down the representation invariants
+//
+// 3. Define the mapping from concrete states to abstract states =
+//    implementing the inspectors (= the getters)
+//    Must satisfy the property that each valid concrete state is mapped
+//    to a valid abstract state
+//
+// 4. Implement the constructors, factory methods, and mutators
+
 /**
  * Each instance of this class stores a time of day with 1-minute granularity.
  * 
@@ -22,14 +37,21 @@ package timeofday_oop;
  */
 public class TimeOfDay {
 	
-	public int getHours() { throw new RuntimeException("Not yet implemented"); }
+	/**
+	 * @invar | 0 <= hours && hours <= 23
+	 * @invar | 0 <= minutes && minutes <= 59
+	 */
+	private int hours;
+	private int minutes;
 	
-	public int getMinutes() { throw new RuntimeException("Not yet implemented"); }
+	public int getHours() { return hours; }
+	
+	public int getMinutes() { return minutes; }
 	
 	/**
 	 * @post | result == getHours() * 60 + getMinutes()
 	 */
-	public int getMinutesSinceMidnight() { throw new RuntimeException("Not yet implemented"); }
+	public int getMinutesSinceMidnight() { return hours * 60 + minutes; }
 
 	/**
 	 * defensive programming
@@ -46,7 +68,8 @@ public class TimeOfDay {
 		if (minutes < 0 || 59 < minutes)
 			throw new IllegalArgumentException("`minutes` out of range");
 		
-		throw new RuntimeException("Not yet implemented");
+		this.hours = hours;
+		this.minutes = minutes;
 	}
 	
 	/**
@@ -57,7 +80,7 @@ public class TimeOfDay {
 	 * @post | getHours() == hours
 	 * @post | getMinutes() == old(getMinutes())
 	 */
-	public void setHours(int hours) { throw new RuntimeException("Not yet implemented"); }
+	public void setHours(int hours) { this.hours = hours; }
 	
 	/**
 	 * @pre | 0 <= minutes && minutes <= 59
@@ -65,13 +88,16 @@ public class TimeOfDay {
 	 * @post | getHours() == old(getHours())
 	 * @post | getMinutes() == minutes
 	 */
-	public void setMinutes(int minutes) { throw new RuntimeException("Not yet implemented"); }
+	public void setMinutes(int minutes) { this.minutes = minutes; }
 	
 	/**
 	 * @pre | 0 <= minutesSinceMidnight && minutesSinceMidnight < 24 * 60
 	 * @mutates | this
 	 * @post | getMinutesSinceMidnight() == minutesSinceMidnight
 	 */
-	public void setMinutesSinceMidnight(int minutesSinceMidnight) { throw new RuntimeException("Not yet implemented"); }
+	public void setMinutesSinceMidnight(int minutesSinceMidnight) {
+		this.hours = minutesSinceMidnight / 60;
+		this.minutes = minutesSinceMidnight % 60; 
+	}
 	
 }
